@@ -7,62 +7,47 @@ __| |___) )   _| |__  \ \___   ) \__/ (   _/ / \ \_
 \________/   /_____(   \____\  \______/  (__/   \__)
 </code></pre>
 
-A Djangonic wrapper around the PostGIS geocoder that emulates the Google Maps
-geocoder's API.
+A Djangonic wrapper around the PostGIS geocoder that emulates the Google Maps geocoder's API.
 
 h2. About
 
-PostGIS v2.0 ships with a built-in but optional U.S. geocoder, which can
-translate addresses into their approximate geographic coordinates.
+PostGIS v2.0 ships with a built-in but optional U.S. geocoder, which can translate addresses into their approximate geographic coordinates.
 
-This tool, based on the U.S. Census Bureau's TIGER/Line data, is among
-the most accurate and capable open-source geocoders available.
+This tool, based on the U.S. Census Bureau's TIGER/Line data, is among the most accurate and capable open-source geocoders available.
 
-Lieux (Lee-YOO, it's a French word) attempts to expose this powerful
-geocoder as a Web service. Its output closely mimicks that of Google's
-geocoding API, and it uses some of Django's built-in features (including
-database configuration settings and lists of common state abbreviations)
-to replicate much of the function of Google's own geocoder.
+Lieux (pr. Lee-YOO) attempts to expose this powerful geocoder as a Web service. Its output closely mimicks that of Google's geocoding API, and it uses some of Django's built-in features (including database configuration settings and lists of common state abbreviations) to replicate much of the function of Google's own geocoder.
 
 h2. Installation
 
-To use Lieux, you first need to have installed the PostGIS geocoder. You
-can find instructions on doing this "here":http://postgis.refractions.net/documentation/manual-svn/postgis_installation.html.
+To use Lieux, you first need to have installed the PostGIS geocoder. You can find instructions on doing this "here":http://postgis.refractions.net/documentation/manual-svn/postgis_installation.html.
 
-Next you'll want to configure your Django site's settings.py file to
-connect to the new database you've set up. Add it below your default
-database by following "these instructions":https://docs.djangoproject.com/en/1.4/ref/settings/#databases, giving it a different
-alias (key in the DATABASES dict) than 'default'. (We'll use 'geocoder')
-for our database alias, but feel free to substitute your own name if you
-wish.)
+Next you'll want to configure your Django site's settings.py file to connect to the new database you've set up. Add it below your default database by following "these instructions":https://docs.djangoproject.com/en/1.4/ref/settings/#databases, giving it a different alias (key in the DATABASES dict) than 'default'. (We'll use 'geocoder') for our database alias, but feel free to substitute your own name if you wish.)
 
-After you've gotten your geocoder database set up, run ./manage.py
-syncdb and then ./manage.py dbshell --database <yourgeocoder>,
-replacing '<yourgeocoder>' with the database alias for your geocoder.
-If this works, you've successfully hooked up the geocoder to Django's
-settings.
+After you've gotten your geocoder database set up, run ./manage.py syncdb and then ./manage.py dbshell --database <yourgeocoder>, replacing '<yourgeocoder>' with the database alias for your geocoder. If this works, you've successfully hooked up the geocoder database to Django's settings.
 
-Next, you'll want to add 'postgis_geocoder' to your INSTALLED_APPS list.
-Add a new setting, GEOCODER_ALIAS, with a value of your database alias
-(again, 'geocoder'  unless you opted for something different), run
-syncdb again and you're done modifying settings.
+Next, you'll want to add 'postgis_geocoder' to your INSTALLED_APPS list. Add a new setting, GEOCODER_ALIAS, with a value of your database alias (again, 'geocoder'  unless you opted for something different), run syncdb again and you're done modifying settings.
 
 Finally, add a line to your URLconf that resembles the following:
 
-<pre><code>
-    url(r'^maps/', include('postgis_geocoder.urls')),
-</code></pre>
+<pre><code>    url(r'^maps/', include('postgis_geocoder.urls')),</code></pre>
 
-And that's it! You're ready to start making requests of the PostGIS
-geocoder.
+And that's it! You're ready to start making requests of the PostGIS geocoder.
 
-## Credits
+h2. Usage
 
-This project couldn't exist without the wonderful work of the PostGIS
-and PostgreSQL teams; their geocoder is very impressive for its relative
-newness. A big 'thank you' goes out to all of them.
+A standard request to Lieux resembles the following:
 
-In addition, this project draws on several core features of Django that
-have enabled sane defaults, deep querying and minimal repetition
-throughout. Thanks as always to those who contribute to its codebase and
-its success.
+<pre><code>http://www.example.com/maps/api/geocode/json?sensor=false&address=333%20W.%20State%20Street,%20MIlwaukee,%20Wisconsin</code></pre>
+
+Note the JSON-generating view takes two querystring arguments:
+
+    *   'sensor', a boolean used to signify whether the device using the API has a location sensor (used only to replicate Google's existing URL schema), and
+    *   'address', the address to be geocoded.
+
+The view will return JSON with exactly the same properties as Google's own geocoding API; you can read about all these parameters "here":https://developers.google.com/maps/documentation/geocoding/#JSON.
+
+h2. Credits
+
+This project couldn't exist without the wonderful work of the PostGIS and PostgreSQL teams; their geocoder is very impressive for its relative newness. A big 'thank you' goes out to all of them.
+
+In addition, this project draws on several core features of Django that have enabled sane defaults, deep querying and minimal repetition throughout. Thanks as always to those who contribute to its codebase and its success.
