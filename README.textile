@@ -1,5 +1,4 @@
-<pre><code>
- _____        _____    _____   __    __   __     __
+<pre><code> _____        _____    _____   __    __   __     __
 (_   _)      (_   _)  / ___/   ) )  ( (  (_ \   / _)
   | |          | |   ( (__    ( (    ) )   \ \_/ /
   | |          | |    ) __)    ) )  ( (     \   /
@@ -37,16 +36,16 @@ alias (key in the DATABASES dict) than 'default'. (We'll use 'geocoder')
 for our database alias, but feel free to substitute your own name if you
 wish.)
 
-After you've gotten your geocoder database set up, run <pre>./manage.py
-syncdb</pre> and then <pre>./manage.py dbshell --database <yourgeocoder></pre>,
+After you've gotten your geocoder database set up, run ./manage.py
+syncdb and then ./manage.py dbshell --database <yourgeocoder>,
 replacing '<yourgeocoder>' with the database alias for your geocoder.
 If this works, you've successfully hooked up the geocoder to Django's
 settings.
 
-Next, you'll want to add 'postgis_geocoder' to your <pre>INSTALLED_APPS</pre> list.
-Add a new setting, <pre>GEOCODER_ALIAS</pre>, with a value of your database alias
+Next, you'll want to add 'postgis_geocoder' to your INSTALLED_APPS list.
+Add a new setting, GEOCODER_ALIAS, with a value of your database alias
 (again, 'geocoder'  unless you opted for something different), run
-<pre>syncdb</pre> again and you're done modifying settings.
+syncdb again and you're done modifying settings.
 
 Finally, add a line to your URLconf that resembles the following:
 
@@ -63,6 +62,7 @@ This project couldn't exist without the wonderful work of the PostGIS
 and PostgreSQL teams; their geocoder is very impressive for its relative
 newness. A big 'thank you' goes out to all of them.
 
-Finally, this project draws on several core features of Django that have
-enabled sane defaults, deep querying and minimal repetition throughout.
-Thanks as always to those who contribute to its codebase and success.
+In addition, this project draws on several core features of Django that
+have enabled sane defaults, deep querying and minimal repetition
+throughout. Thanks as always to those who contribute to its codebase and
+its success.
