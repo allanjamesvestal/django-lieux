@@ -25,13 +25,13 @@ Next you'll want to configure your Django site's settings.py file to connect to 
 
 After you've gotten your geocoder database set up, run ./manage.py syncdb and then ./manage.py dbshell --database <yourgeocoder>, replacing '<yourgeocoder>' with the database alias for your geocoder. If this works, you've successfully hooked up the geocoder database to Django's settings.
 
-Next, you'll want to add 'postgis_geocoder' to your INSTALLED_APPS list. Add a new setting, GEOCODER_ALIAS, with a value of your database alias (again, 'geocoder'  unless you opted for something different), run syncdb again and you're done modifying settings.
+Next, you'll want to add 'lieux' to your INSTALLED_APPS list. Add a new setting, GEOCODER_ALIAS, with a value of your database alias (again, 'geocoder'  unless you opted for something different), run syncdb again and you're done modifying settings.
 
 Finally, add a line to your URLconf that resembles the following:
 
-<pre><code>    url(r'^maps/', include('postgis_geocoder.urls')),</code></pre>
+<pre><code>    url(r'^maps/', include('lieux.urls')),</code></pre>
 
-And that's it! You're ready to start making requests of the PostGIS geocoder.
+And that's it! You're ready to start making requests of Lieux.
 
 h2. Usage
 
