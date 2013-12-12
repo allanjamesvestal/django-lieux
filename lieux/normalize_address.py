@@ -1,4 +1,4 @@
-from postgis_geocoder.db_connection import submit_geocoder_query
+from lieux.db_connection import submit_geocoder_query
 
 
 def normalize_address(db_alias, address):
