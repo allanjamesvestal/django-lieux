@@ -1,1 +1,2 @@
+v0.5.0, 2013-12-12 -- Major refactor, support for AP style normalization.
 v0.0.1, 2012-07-16 -- Initial release.
