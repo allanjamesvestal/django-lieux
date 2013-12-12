@@ -4,6 +4,11 @@ from django.http import HttpResponse
 from django.utils import simplejson
 from django.utils.datastructures import MultiValueDictKeyError
 
+<<<<<<< HEAD
+=======
+# Imports from lieux.
+from lieux.geocode_address import geocode_address
+>>>>>>> d0e852f51f103f9c1874e6b8afb9c4bd58aefca5
 
 # Imports from lieux.
 from lieux.address import geocode_address
