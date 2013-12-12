@@ -1,5 +1,5 @@
-from postgis_geocoder.db_connection import submit_geocoder_query
-from postgis_geocoder.normalize_address import normalize_address
+from lieux.db_connection import submit_geocoder_query
+from lieux.normalize_address import normalize_address
 
 
 def geocode_address(db_alias, address):
