@@ -2,12 +2,10 @@
 from django.conf import settings
 
 
-# Imports from datastream (to be factored out)
-from datastream.geostandard.latstatestyle import CROSSWALK
-
 # Imports from lieux.
 from lieux import ap_style
 from lieux.address import normalize_address
+from lieux.latstatestyle import CROSSWALK
 from lieux.secondary_units import SECONDARY_UNITS_WITH_NUMBERS
 from lieux.street_suffixes import street_suffixes
 from lieux.style import HIGHWAYS_STATE_APPEND, HIGHWAYS_TO_STYLE
