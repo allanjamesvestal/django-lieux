@@ -132,9 +132,10 @@ def format_result_in_ap_style(address, db_alias=None, street_custon_styles=None)
     # see if it matches one of the streets for which we have a custom style. If
     # so, return this custom street name in lieu of the one from the geocoder.
     # Else return the geocoded result in titlecase.
-    if street_custon_styles:
-        if result_list[2] != '' and result_list[3].lower() \
-                                not in HIGHWAYS_TO_STYLE.keys():
+
+    if result_list[2] != '' and result_list[3].lower() not \
+                in HIGHWAYS_TO_STYLE.keys():
+        if street_custon_styles:
             if result_list[6].lower() in street_custon_styles.keys() and \
                     result_list[2].strip('"').lower() in street_custon_styles[
                             result_list[6].lower()
@@ -143,10 +144,10 @@ def format_result_in_ap_style(address, db_alias=None, street_custon_styles=None)
                         street_custon_styles.STREETS_TO_STYLE[
                             result_list[6].lower()
                         ][result_list[2].strip('"').lower()])
-            else:
-                formatted_first_line.append(titlecase(
-                    result_list[2].strip('"')
-                ))
+        else:
+            formatted_first_line.append(titlecase(
+                result_list[2].strip('"')
+            ))
 
     # Next match roads to their corrrect abbreviations (or non-abbreviations)
     # according to Associated Press style.
