@@ -4,8 +4,8 @@ from django.http import HttpResponse
 from django.utils import simplejson
 from django.utils.datastructures import MultiValueDictKeyError
 
-# Imports from postgis_geocoder.
-from postgis_geocoder.geocode_address import geocode_address
+# Imports from lieux.
+from lieux.geocode_address import geocode_address
 
 
 def google_style(request):
