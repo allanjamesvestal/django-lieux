@@ -69,7 +69,7 @@ def format_for_styler(components):
     return " ".join([line_1, line_2])
 
 
-def format_result_in_ap_style(address, db_alias=None, street_custon_styles=None):
+def format_result_in_ap_style(address, db_alias=None, street_custom_styles=None, additional_street_styles=None):
     """
     Given a string representing a street address, parses that location
     and converts it to Associated Press style. Eventually this will be
@@ -81,10 +81,16 @@ def format_result_in_ap_style(address, db_alias=None, street_custon_styles=None)
         -   db_alias: the name given to the geocoder's database in your
                 settings.py file. Defaults to None (though a null value
                 will be overridden in lines 240-245).
-        -   street_custon_styles: A dict of dicts, with first-level
+        -   street_custom_styles: A dict of dicts, with first-level
                 keys specifying a city and second-level keys specifying
                 the names of streets in this city that should be changed
                 before they are returned from the formatter. The second-
+                level keys will be replaced with the respective values.
+                Optional, and defaults to None.
+        -   additional_street_styles: A dict of dicts, with first-level
+                keys specifying city and second-level keys specifying
+                the names of streets in this city that should be changed
+                before they are passed into the geocoder. The second-
                 level keys will be replaced with the respective values.
                 Optional, and defaults to None.
 
@@ -106,7 +112,8 @@ def format_result_in_ap_style(address, db_alias=None, street_custon_styles=None)
     # First, normalize this address using PostGIS.
     result_list = normalize_address(
             address,
-            db_alias
+            db_alias,
+            additional_street_styles
         )
 
     formatted_address = []
@@ -135,13 +142,13 @@ def format_result_in_ap_style(address, db_alias=None, street_custon_styles=None)
 
     if result_list[2] != '' and result_list[3].lower() not \
                 in HIGHWAYS_TO_STYLE.keys():
-        if street_custon_styles:
-            if result_list[6].lower() in street_custon_styles.keys() and \
-                    result_list[2].strip('"').lower() in street_custon_styles[
+        if street_custom_styles:
+            if result_list[6].lower() in street_custom_styles.keys() and \
+                    result_list[2].strip('"').lower() in street_custom_styles[
                             result_list[6].lower()
                         ].keys():
                 formatted_first_line.append(
-                        street_custon_styles.STREETS_TO_STYLE[
+                        street_custom_styles.STREETS_TO_STYLE[
                             result_list[6].lower()
                         ][result_list[2].strip('"').lower()])
         else:
