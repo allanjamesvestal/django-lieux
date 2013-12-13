@@ -148,7 +148,7 @@ def format_result_in_ap_style(address, db_alias=None, street_custom_styles=None,
                             result_list[6].lower()
                         ].keys():
                 formatted_first_line.append(
-                        street_custom_styles.STREETS_TO_STYLE[
+                        street_custom_styles[
                             result_list[6].lower()
                         ][result_list[2].strip('"').lower()])
         else:
