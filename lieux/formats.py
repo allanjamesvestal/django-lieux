@@ -1,3 +1,7 @@
+# Imports from python.
+import re
+
+
 # Imports fron django.
 from django.conf import settings
 
@@ -109,12 +113,30 @@ def format_result_in_ap_style(address, db_alias=None, street_custom_styles=None,
     # Remove all periods and commas from the address.
     address = address.replace(',', '').replace('.', '')
 
+    # If the first part of the address matches the bizarre out-state
+    # Wisconsin address formula (exempli gratia, N109W1711 Ava Circle),
+    # remove that address and substitute in a bogus number instead.
+    # We'll format the actual address and substitute it in later.
+    address_first_part = address.split(' ')[0]
+    address_first_part_match = re.search(r'[N|S]\d+W\d+', address_first_part)
+    if address_first_part_match:
+        address_first_part_formatted = "%s-W%s" % (
+            address_first_part.split('W')[0],
+            address_first_part.split('W')[1]
+        )
+        print address_first_part_formatted
+        address = '171717' + address.split(address_first_part)[1]
+
     # First, normalize this address using PostGIS.
     result_list = normalize_address(
             address,
             db_alias,
             additional_street_styles
         )
+
+    if address_first_part_match:
+        if result_list[0] == '171717':
+            result_list[0] = address_first_part_formatted
 
     formatted_address = []
     formatted_first_line = []
