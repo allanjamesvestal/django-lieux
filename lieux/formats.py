@@ -122,6 +122,7 @@ def format_result_in_ap_style(address, db_alias=None, street_custom_styles=None,
         r'[N|S]\d+W\d+',
         address_first_part
     )
+    print address_first_part
     if address_first_part_match:
         address_first_part_formatted = "%s-W%s" % (
             address_first_part.split('W')[0],
