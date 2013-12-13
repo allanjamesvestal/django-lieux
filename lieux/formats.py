@@ -118,7 +118,10 @@ def format_result_in_ap_style(address, db_alias=None, street_custom_styles=None,
     # remove that address and substitute in a bogus number instead.
     # We'll format the actual address and substitute it in later.
     address_first_part = address.split(' ')[0]
-    address_first_part_match = re.search(r'[N|S]\d+W\d+', address_first_part)
+    address_first_part_match = re.search(
+        r'[N|S]\d+W\d+',
+        address_first_part.upper()
+    )
     if address_first_part_match:
         address_first_part_formatted = "%s-W%s" % (
             address_first_part.split('W')[0],
