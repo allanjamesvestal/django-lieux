@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='Lieux',
-    version='0.5.2',
+    version='0.5.4',
     author='Allan James Vestal',
     author_email='ajvestal@journalsentinel.com',
     packages=['lieux'],

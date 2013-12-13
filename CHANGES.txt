@@ -1,2 +1,3 @@
+v0.5.4, 2013-12-13 -- Added out-state Wisconsin address (e.g., N109-W3303 XXX Road) support
 v0.5.0, 2013-12-12 -- Major refactor, support for AP style normalization.
 v0.0.1, 2012-07-16 -- Initial release.

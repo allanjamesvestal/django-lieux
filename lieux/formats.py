@@ -124,7 +124,6 @@ def format_result_in_ap_style(address, db_alias=None, street_custom_styles=None,
             address_first_part.split('W')[0],
             address_first_part.split('W')[1]
         )
-        print address_first_part_formatted
         address = '171717' + address.split(address_first_part)[1]
 
     # First, normalize this address using PostGIS.
