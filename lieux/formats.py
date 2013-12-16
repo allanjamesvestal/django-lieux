@@ -119,13 +119,16 @@ def format_result_in_ap_style(address, db_alias=None, street_custom_styles=None,
     # We'll format the actual address and substitute it in later.
     address_first_part = address.split(' ')[0]
     address_first_part_match = re.search(
-        r'[N|E|W|S]\d+[N|E|W|S]\d+',
-        address_first_part.upper()
+        r'([N|E|W|S])(\d+)([N|E|W|S])(\d+)',
+        address_first_part.upper(),
+        flags=re.IGNORECASE
     )
     if address_first_part_match:
-        address_first_part_formatted = "%s-W%s" % (
-            address_first_part.upper().split('W')[0],
-            address_first_part.upper().split('W')[1]
+        address_first_part_formatted = "%s%s-%s%s" % (
+            address_first_part_match.group(1).upper(),
+            address_first_part_match.group(2),
+            address_first_part_match.group(3).upper(),
+            address_first_part_match.group(4)
         )
         address = '171717' + address.split(address_first_part)[1]
 
