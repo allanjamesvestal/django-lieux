@@ -371,7 +371,7 @@ def normalize_intersection(intersection_raw, db_alias=None):
         if parsable[6]:
             address_components['city'] = parsable[6]
 
-        second_road = " ".join([part for part in parsable[1:5] if part != ''])
+        second_road = " ".join([part for part in parsable[1:3] if part != ''])
 
         # Now we'll go back and normalize the first street name the same way.
         spoofed_first = " ".join([
@@ -385,7 +385,7 @@ def normalize_intersection(intersection_raw, db_alias=None):
                 db_alias
             )
         if first_road_parsable:
-            first_road = " ".join([part for part in first_road_parsable[1:5] \
+            first_road = " ".join([part for part in first_road_parsable[1:3] \
                                     if part != ''])
             if first_road == '':
                 raise IntersectionInputError('Invalid first road value.')
