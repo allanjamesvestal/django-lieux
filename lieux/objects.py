@@ -98,14 +98,22 @@ class GeocodedIntersection(object):
         # Imports from lieux
         from lieux.formats import format_result_in_ap_style
         first_street_formatted = format_result_in_ap_style(
-                '1217 %s, Milwaukee, WI' % self.street_one
+                '1217 %s, %s, %s' % (
+                        self.street_one,
+                        self.address.components[6],
+                        self.address.components[7]
+                    )
             )
         fmt_string = [
             " ".join([
                     first_street_formatted[0][5:],
                     'at',
                     format_result_in_ap_style(
-                            '1217 %s, Milwaukee, WI' % self.street_two
+                            '1217 %s, %s, %s' % (
+                                    self.street_two,
+                                    self.address.components[6],
+                                    self.address.components[7]
+                                )
                         )[0][5:]
                 ]),
             first_street_formatted[1]
