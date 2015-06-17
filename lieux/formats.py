@@ -139,6 +139,9 @@ def format_result_in_ap_style(address, db_alias=None, street_custom_styles=None,
             additional_street_styles
         )
 
+    if not result_list:
+        return None
+
     if address_first_part_match:
         if result_list[0] == '171717':
             result_list[0] = address_first_part_formatted
@@ -148,6 +151,7 @@ def format_result_in_ap_style(address, db_alias=None, street_custom_styles=None,
     # For our additional processing, check if there were non-numeric characters
     # in the street address. If so, replace their normalized value with the raw
     # street number. Else use the normalized value.
+
     if result_list[0] != '':
         if not address.split(' ')[0].isdigit():
             formatted_first_line.append(

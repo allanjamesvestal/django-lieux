@@ -56,7 +56,7 @@ def format_for_geocoder(components):
     line_2 = " ".join(cpnt.strip('"') for cpnt in components_to_geocode[6:] \
                                         if cpnt != '')
 
-    return " ".join([line_1, line_2])
+    return " ".join([line_1, line_2]).replace("'", "''")
 
 
 def geocode_address(address, max_results=10, db_alias=None):
@@ -194,7 +194,7 @@ def normalize_address(address, db_alias=None, additional_street_styles=None):
             address = pound_re.sub('Apt. ', address)
 
     # Remove all punctuation from the raw address string.
-    address = address.replace(',', '').replace('.', '')
+    address = address.replace(',', '').replace('.', '').replace("'", "''")
 
     # Now build the query.
     query = "SELECT normalize_address('%(address)s');"
@@ -214,8 +214,10 @@ def normalize_address(address, db_alias=None, additional_street_styles=None):
     if [i for i in result_components[:-1] if i.replace('"', '') != ''] == []:
         return None
 
-    result_components = [component.replace('"', '') for component
-                                                    in result_components]
+    result_components = [
+        component.replace('"', '').replace("''", "'") for component
+        in result_components
+    ]
 
     # Now we check to see if there was a non-numeric apartment number the
     # normalizer truncated from our address. If so, append three zeroes before
